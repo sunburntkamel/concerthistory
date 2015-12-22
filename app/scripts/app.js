@@ -14,22 +14,28 @@ angular
     'ngCookies',
     'ngResource',
     'ngRoute',
+    'ui.router',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'config'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+    $httpProvider.defaults.withCredentials = true;
+    $httpProvider.defaults.headers.common['Content-Type'] = 'application/json';
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    $stateProvider
+      .state('main', {
+        url: '/',
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-        controllerAs: 'main'
+        data: {
+
+        }
       })
-      .when('/about', {
+      .state('about', {
+        url: '/about',
         templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
-      .otherwise({
-        redirectTo: '/'
+        controller: 'AboutCtrl'
       });
+      $urlRouterProvider.otherwise('/');
   });

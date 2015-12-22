@@ -17,7 +17,8 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    ngconstant: 'grunt-ng-constant'
   });
 
   // Configurable paths for the application
@@ -31,6 +32,46 @@ module.exports = function (grunt) {
 
     // Project settings
     yeoman: appConfig,
+
+    //ng-constant
+   ngconstant: {
+     options: {
+       name: 'config',
+       dest: '<%= yeoman.app %>/scripts/config.js',
+       constants: {
+
+       }
+     },
+     dev: {
+       constants: {
+         ENV: 'localhost',
+         CLIENT_SECRET: {
+           as_application_name: 'concerthistory',
+           as_api_key: '06523063f6ff63b32742c243fb929bbb',
+           as_shared_secret: 'f2c0604b647c3d2dcb19d4dbf5aff82b'
+         },
+         DOMAIN_URL: {
+           self: 'http://localhost:9000/',
+           audioscrobbler: 'http://ws.audioscrobbler.com/2.0/'
+         }
+       }
+     },
+     prod: {
+       constants: {
+         ENV: 'production',
+         DOMAIN_URL: {
+           self: 'http://sunburntkamel.github.io/concerthistory',
+           audioscrobbler: 'http://ws.audioscrobbler.com/2.0/'
+         },
+         CLIENT_SECRET: {
+           as_application_name: 'concerthistory',
+           as_api_key: '06523063f6ff63b32742c243fb929bbb',
+           as_shared_secret: 'f2c0604b647c3d2dcb19d4dbf5aff82b'
+         }
+       }
+     },
+   },
+
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -451,6 +492,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
+      'ngconstant:dev',
       'concurrent:server',
       'autoprefixer:server',
       'connect:livereload',
@@ -475,6 +517,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'wiredep',
+    'ngconstant:prod',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
