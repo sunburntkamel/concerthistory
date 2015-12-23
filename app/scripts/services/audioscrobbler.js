@@ -13,6 +13,6 @@ angular.module('concerthistoryApp')
     return $resource(DOMAIN_URL.audioscrobbler, {
       api_key: CLIENT_SECRET.as_api_key,
       method: '@method',
-      artist: '@artist'
+      user: '@user'
     });
   });
