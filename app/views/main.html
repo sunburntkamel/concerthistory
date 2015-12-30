@@ -1,4 +1,13 @@
-<h1>dredg</h1>
+<h1>venues</h1>
 <ul>
-  <li ng-repeat="album in topAlbums track by $index">{{$index}}</li>
+  <li ng-repeat="(k, venue) in venues track by $index">
+    {{venue.name}}
+    <ul class="list-group">
+                <li class="list-group-item" ng-repeat="(property, value) in venue">
+                    {{property}}: {{value}}
+                </li>
+            </ul>
+    <a class="btn btn-default" ui-sref="venue({venue:k})">Edit Venue</a>
+  </li>
 </ul>
+<a class="btn btn-primary" href="#" ui-sref="venue">Add Venue</a>

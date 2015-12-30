@@ -8,22 +8,23 @@
  * Controller of the concerthistoryApp
  */
 angular.module('concerthistoryApp')
-  .controller('MainCtrl', function ($scope, audioScrobbler) {
+  .controller('MainCtrl', function ($scope, audioScrobbler, venues) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-    console.log('MainCtrl');
-    audioScrobbler.get({
-      method: 'user.getPastEvents',
-      user: 'sunburntkamel'
-    }, function(res) {
-      console.log(res);
-      $scope.topAlbums = res;
-    }, function(res) {
-      console.log(res);
-    });
+    $scope.venues = venues;
+    console.log($scope.venues);
+    // audioScrobbler.get({
+    //   method: 'user.getInfo',
+    //   user: 'sunburntkamel'
+    // }, function(res) {
+    //   console.log(res);
+    //   $scope.topAlbums = res;
+    // }, function(res) {
+    //   console.log(res);
+    // });
     /* Create a cache object */
     // $scope.cache = new LastFMCache();
 

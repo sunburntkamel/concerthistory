@@ -1,0 +1,25 @@
+<h2 ng-if="venue">Edit {{venueInfo.name}}</h2>
+<h2 ng-if="!venue">Add Venue</h2>
+<div ng-class="{'col-md-pull-4 col-md-8':markers.length}" ng-show="markers.length">
+  <leaflet markers="markers" center="center" width="100%" height="480px"></leaflet>
+</div>
+<form ng-submit="save(venueInfo)" class="col-md-4" ng-class="{'col-md-push-8':markers.length}">
+  <div class="form-group">
+    <label class="control-label">Venue Name</label>
+    <div class="input-group">
+      <div class="input-group-addon"><a ng-click="clearSearch()"><i class="fi fi-times-circle text-muted"></i></a></div>
+      <input type="text" ng-model="venueInfo.name" class="form-control" ng-change="venueSuggest()" />
+      <div class="input-group-addon"><a ng-click="venueSuggest(true)"><i class="fi fi-search text-muted"></i></a></div>
+    </div>
+  </div>
+  <ul>
+    <li ng-repeat="result in extResults track by $index">
+      {{result.place_name}}
+      <a
+        class="btn btn-default"
+        ng-click="addVenue(result.text, result.center[1], result.center[0], result.properties.address)"
+        >
+        Add
+      </a>
+    </li>
+</form>
